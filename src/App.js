@@ -1,5 +1,11 @@
+import { TodoContainer } from './components/TodoContainer'
+
 function App() {
-  return <div>app</div>
+  return (
+    <>
+      <TodoContainer />
+    </>
+  )
 }
 
 export default App

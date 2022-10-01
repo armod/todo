@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { useContext } from 'react'
 import { useReducer } from 'react'
 import reducer from './reducer'
@@ -13,11 +14,21 @@ const InitialState = {
   isDone: false,
   date: '',
 }
+
+const getLocalStorage = () => {
+  let list = localStorage.getItem('list')
+  if (list) {
+    return JSON.parse(localStorage.getItem('list'))
+  } else {
+    return []
+  }
+}
+
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, InitialState)
 
   const [task, setTask] = useState('')
-  const [list, setList] = useState([])
+  const [list, setList] = useState(getLocalStorage())
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
@@ -30,6 +41,18 @@ const AppProvider = ({ children }) => {
       showAlert(true, 'danger', 'please enter value')
     } else if (task && isEditing) {
       //edit
+      setList(
+        list.map((item) => {
+          if (item.id === editID) {
+            return { ...item, title: task }
+          }
+          return item
+        })
+      )
+      setTask('')
+      setEditID(null)
+      setIsEditing(false)
+      showAlert(true, 'success', 'value changed')
     } else {
       showAlert(true, 'success', 'item add to the list')
       const newTask = { id: new Date().getTime.toString(), title: task }
@@ -47,11 +70,21 @@ const AppProvider = ({ children }) => {
     setList([])
   }
 
-  const remove = (id) => {
-    dispatch({ type: 'REMOVE', payload: id })
+  const removeTodo = (id) => {
+    showAlert(true, 'danger', 'task removed')
+    setList(list.filter((item) => item.id !== id))
+  }
+  const editTask = (id) => {
+    const specyficItem = list.find((item) => item.id === id)
+    setIsEditing(true)
+    setEditID(id)
+    setTask(specyficItem.title)
   }
 
-  return <AppContext.Provider value={{ ...state, task, setTask, list, isEditing, editID, alert, clearList, remove, handleSubmit, setTask, showAlert }}>{children}</AppContext.Provider>
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list))
+  }, [list])
+  return <AppContext.Provider value={{ ...state, task, setTask, list, isEditing, editID, alert, clearList, removeTodo, handleSubmit, setTask, editTask, showAlert }}>{children}</AppContext.Provider>
 }
 
 export const useGlobalContext = () => {

@@ -146,6 +146,10 @@ header {
   margin-right: 10px;
 }
 
+.done {
+  color: rgb(0, 255, 0);
+}
+
 .btn-edit:hover,
 .btn-delete:hover,
 .btn-done:hover {

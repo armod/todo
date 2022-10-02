@@ -56,21 +56,7 @@ const AppProvider = ({ children }) => {
       setEditID(null)
       setIsEditing(false)
       showAlert(true, 'success', 'value changed')
-    } /* else if (task && isDone) {
-      //is done
-      console.log('task && isDone')
-      setList(
-        list.map((item) => {
-          if (item.id === editID) {
-            return { ...item, done: task }
-          }
-          return item
-        })
-      )
-      setTask('')
-      setEditID(null)
-      showAlert(true, 'success', 'task done')
-    }  */ else {
+    } else {
       showAlert(true, 'success', 'item add to the list')
       const newTask = { id: new Date().getTime().toString(), title: task, done: isDone }
       setList([...list, newTask])

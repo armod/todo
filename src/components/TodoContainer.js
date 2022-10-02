@@ -13,17 +13,16 @@ export const TodoContainer = () => {
         </header>
         <form onSubmit={handleSubmit} className='form'>
           {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
-          <div>
-            <input
-              type='text'
-              className='todo-input'
-              placeholder='write task'
-              value={task}
-              onChange={(e) => {
-                setTask(e.target.value)
-              }}
-            />
-          </div>
+
+          <input
+            type='text'
+            className='todo-input'
+            placeholder='write task'
+            value={task}
+            onChange={(e) => {
+              setTask(e.target.value)
+            }}
+          />
           <button className='btn' type='submit'>
             {isEditing ? 'edit' : 'submit'}
           </button>
@@ -31,8 +30,8 @@ export const TodoContainer = () => {
         {list.length > 0 && (
           <div>
             <Todo items={list} removeTodo={removeTodo} editTask={editTask} />
-            <button className='btn-clear' onClick={clearList}>
-              clear todo
+            <button className='btn btn-clear' onClick={clearList}>
+              clear all
             </button>
           </div>
         )}

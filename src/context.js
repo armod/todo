@@ -8,11 +8,11 @@ import reducer from './reducer'
 const AppContext = React.createContext()
 
 const InitialState = {
-  id: 0,
+  /* id: 0,
   task: '',
   content: '',
   isDone: false,
-  date: '',
+  date: '', */
 }
 
 const getLocalStorage = () => {
@@ -55,7 +55,7 @@ const AppProvider = ({ children }) => {
       showAlert(true, 'success', 'value changed')
     } else {
       showAlert(true, 'success', 'item add to the list')
-      const newTask = { id: new Date().getTime.toString(), title: task }
+      const newTask = { id: new Date().getTime().toString(), title: task }
       setList([...list, newTask])
       setTask('')
     }

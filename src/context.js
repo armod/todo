@@ -77,6 +77,12 @@ const AppProvider = ({ children }) => {
     showAlert(true, 'danger', 'task removed')
     setList(list.filter((item) => item.id !== id))
   }
+
+  const removeAllDone = (id) => {
+    showAlert(true, 'danger', 'all completed tasks have been deleted')
+    setList(list.filter((item) => item.done === false))
+  }
+
   const editTask = (id) => {
     const specyficItem = list.find((item) => item.id === id)
     setIsEditing(true)
@@ -104,7 +110,7 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('list', JSON.stringify(list))
   }, [list])
-  return <AppContext.Provider value={{ ...state, task, setTask, list, isEditing, editID, alert, isDone, doneTask, clearList, removeTodo, handleSubmit, setTask, editTask, showAlert }}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ ...state, task, setTask, list, isEditing, editID, alert, removeAllDone, doneTask, clearList, removeTodo, handleSubmit, setTask, editTask, showAlert }}>{children}</AppContext.Provider>
 }
 
 export const useGlobalContext = () => {

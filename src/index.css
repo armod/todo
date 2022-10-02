@@ -70,11 +70,13 @@ header {
   padding: 5px;
   margin-top: 30px;
   width: 100%;
+  transition: all 0.5s ease-in;
 }
 
 .alert {
   position: absolute;
-  top: -30px;
+  font-size: 1.5rem;
+  top: -50px;
   font-style: italic;
   z-index: 99;
 }
@@ -159,9 +161,15 @@ header {
 
 .btn-clear {
   font-size: 1rem;
-  margin-left: calc(50% - 50px);
-  margin-bottom: 10px;
+  /* margin-left: calc(50% - 50px);
+  margin-bottom: 10px; */
   width: 100px;
   margin-top: 20px;
   box-shadow: 2px 2px 2px 1px var(--primary-0);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }

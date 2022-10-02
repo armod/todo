@@ -1,5 +1,5 @@
 import React from 'react'
-import { MdEdit, MdDelete } from 'react-icons/md'
+import { MdEdit, MdDelete, MdDoneOutline } from 'react-icons/md'
 
 export const Todo = ({ items, removeTodo, editTask }) => {
   return (
@@ -10,6 +10,9 @@ export const Todo = ({ items, removeTodo, editTask }) => {
           return (
             <article key={id} className='todo-item'>
               <p className='title'>{title}</p>
+              <button className='btn btn-done' onClick={() => editTask(id)}>
+                <MdDoneOutline />
+              </button>
               <button className='btn btn-edit' onClick={() => editTask(id)}>
                 <MdEdit />
               </button>

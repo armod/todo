@@ -32,15 +32,18 @@ const AppProvider = ({ children }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
+  const [isDone, setIsDone] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     if (!task) {
       //display alert
       // setAlert({ show: true, msg: 'please enter value', type: 'danger' })
       showAlert(true, 'danger', 'please enter value')
     } else if (task && isEditing) {
       //edit
+      console.log('task && isEditing')
       setList(
         list.map((item) => {
           if (item.id === editID) {
@@ -53,9 +56,23 @@ const AppProvider = ({ children }) => {
       setEditID(null)
       setIsEditing(false)
       showAlert(true, 'success', 'value changed')
-    } else {
+    } /* else if (task && isDone) {
+      //is done
+      console.log('task && isDone')
+      setList(
+        list.map((item) => {
+          if (item.id === editID) {
+            return { ...item, done: task }
+          }
+          return item
+        })
+      )
+      setTask('')
+      setEditID(null)
+      showAlert(true, 'success', 'task done')
+    }  */ else {
       showAlert(true, 'success', 'item add to the list')
-      const newTask = { id: new Date().getTime().toString(), title: task }
+      const newTask = { id: new Date().getTime().toString(), title: task, done: isDone }
       setList([...list, newTask])
       setTask('')
     }
@@ -81,10 +98,27 @@ const AppProvider = ({ children }) => {
     setTask(specyficItem.title)
   }
 
+  const doneTask = (id) => {
+    showAlert(true, 'success', 'task done')
+    const specyficItem = list.find((item) => item.id === id)
+    //ustaw isDone na true
+    // setIsDone(!isDone)
+    console.log(isDone, specyficItem, specyficItem.id, specyficItem.done)
+    setList(
+      list.map((item) => {
+        if (item.id === specyficItem.id) {
+          // console.log('in if')
+          return { ...item, done: !specyficItem.done }
+        }
+        return item
+      })
+    )
+  }
+
   useEffect(() => {
     localStorage.setItem('list', JSON.stringify(list))
   }, [list])
-  return <AppContext.Provider value={{ ...state, task, setTask, list, isEditing, editID, alert, clearList, removeTodo, handleSubmit, setTask, editTask, showAlert }}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ ...state, task, setTask, list, isEditing, editID, alert, isDone, doneTask, clearList, removeTodo, handleSubmit, setTask, editTask, showAlert }}>{children}</AppContext.Provider>
 }
 
 export const useGlobalContext = () => {

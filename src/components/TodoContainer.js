@@ -4,7 +4,7 @@ import { useGlobalContext } from '../context'
 import { Alert } from './Alert'
 
 export const TodoContainer = () => {
-  const { handleSubmit, alert, isEditing, task, setTask, list, showAlert, clearList, removeTodo, editTask } = useGlobalContext()
+  const { handleSubmit, alert, isEditing, task, setTask, list, showAlert, clearList, removeTodo, editTask, doneTask } = useGlobalContext()
   return (
     <>
       <div className='todo-container'>
@@ -29,7 +29,7 @@ export const TodoContainer = () => {
         </form>
         {list.length > 0 && (
           <div>
-            <Todo items={list} removeTodo={removeTodo} editTask={editTask} />
+            <Todo items={list} removeTodo={removeTodo} editTask={editTask} doneTask={doneTask} />
             <button className='btn btn-clear' onClick={clearList}>
               clear all
             </button>

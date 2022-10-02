@@ -51,7 +51,7 @@ body {
   transform: translate(-50%, -50%);
   background: var(--secondary-2-2);
   font-family: 'Ubuntu', sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 header {
@@ -76,6 +76,7 @@ header {
   position: absolute;
   top: -30px;
   font-style: italic;
+  z-index: 99;
 }
 .alert-success {
   color: green;
@@ -113,6 +114,10 @@ header {
   border-radius: 10px;
   text-align: justify;
   overflow-wrap: anywhere;
+}
+
+.is-done {
+  text-decoration: line-through;
 }
 
 .btn {
